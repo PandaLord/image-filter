@@ -7,9 +7,6 @@ mod filters;
 mod mono_effect;
 mod text_apply;
 mod watermark;
-
-use anyhow::{Context, Result};
-use photon_rs::native::save_image;
 use photon_rs::PhotonImage;
 use enum_dispatch::enum_dispatch;
 
@@ -97,7 +94,7 @@ mod transform {
         }
     }
     impl ImageAction for Padding {
-        fn apply(&self, img: &mut PhotonImage) {
+        fn apply(&self, _img: &mut PhotonImage) {
             todo!()
         }
     }
@@ -123,13 +120,9 @@ pub enum Action {
 
 #[cfg(test)]
 mod test {
-    use photon_rs::transform::SamplingFilter;
-
+    use photon_rs::native::save_image;
     use crate::engine::{Photon, Engine};
-
     use super::*;
-
-
     #[test]
     fn test_transform() {
         let img = photon_rs::native::open_image("pic/test.jpg").unwrap();
