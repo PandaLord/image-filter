@@ -10,16 +10,14 @@ mod watermark;
 mod blending;
 
 
-use std::path::Path;
 
 use photon_rs::PhotonImage;
-use transform::*;
 use photon_rs::native::save_image;
 use anyhow::{Result, Context};
 
 
 pub trait ImageAction {
-    fn apply(&self, img: PhotonImage) -> PhotonImage;
+    fn apply(&mut self, img: PhotonImage) -> PhotonImage;
 }
 
 pub struct ImageHandler {
@@ -55,7 +53,8 @@ impl ImageHandler {
 mod test {
 
     use super::*;
-    use super::TransformAction;
+    use super::filters::{FilterAction, FilterType};
+    use super::transform::{TransformType, TransformAction};
 
     #[test]
     fn test_transform() {
@@ -66,6 +65,17 @@ mod test {
         handler.add_action(Box::new(TransformAction(TransformType::Flipv)));
         handler.add_action(Box::new(TransformAction(TransformType::Rotate {angle: 90})));
         handler.apply();
-        handler.output("pic/IMG_0171_after.jpeg");
+        assert!(handler.output("pic/IMG_0171_after.jpeg").is_ok());
     }
+
+    #[test]
+    fn test_multiple_actions() {
+        let img = photon_rs::native::open_image("pic/IMG_0171.jpeg").unwrap();
+        let mut handler = ImageHandler::new(img);
+        handler.add_action(Box::new(TransformAction(TransformType::Fliph)));
+        handler.add_action(Box::new(FilterAction(FilterType::Oceanic)));
+        handler.apply();
+        assert!(handler.output("pic/IMG_0171_after.jpeg").is_ok());
+    }
+
 }

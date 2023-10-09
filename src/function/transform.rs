@@ -73,7 +73,7 @@ impl TransformAction {
 
 
 impl ImageAction for TransformAction {
-    fn apply(&self, img: PhotonImage) -> PhotonImage {
+    fn apply(&mut self, img: PhotonImage) -> PhotonImage {
         self.transform_apply(img)
     }
 }
