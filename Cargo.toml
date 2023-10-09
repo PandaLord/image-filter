@@ -7,5 +7,6 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.75"
+enum_dispatch = "0.3.12"
 photon-rs = "0.3.2"
 thiserror = "1.0.49"

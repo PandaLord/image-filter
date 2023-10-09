@@ -3,7 +3,7 @@ use photon_rs::{Rgba, transform::*, PhotonImage};
 
 use super::ImageAction;
 pub enum TransformType {
-    Resize {width: u32, height: u32, filter: SamplingFilter},
+    Resize {},
     Resample {dst_width: usize, dst_height: usize},
     Crop {x1: u32, x2: u32, y1: u32, y2: u32},
     Fliph,
