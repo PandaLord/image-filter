@@ -1,20 +1,15 @@
 use photon_rs::PhotonImage;
-
-use crate::prelude::Action;
-use crate::function::ImageAction;
-
+use crate::{function::transform::*, prelude::{TransformAction, TransformImpl}};
 pub trait Engine {
-    fn apply(&mut self, actions: &[Action]);
+    fn apply(&mut self, actions: &[TransformAction]);
 }
-
-
 
 pub struct Photon(pub PhotonImage);
 
 impl Engine for Photon {
-    fn apply(&mut self, actions: &[Action]) {
-        for action in actions.iter(){
-            action.apply(&mut self.0);
+    fn apply(&mut self, actions: &[TransformAction]) {
+        for action in actions.iter() {
+            action.transform(&mut self.0);
         }
     }
 }
@@ -24,6 +19,3 @@ impl Photon {
         Self(img)
     }
 }
-
-
-
