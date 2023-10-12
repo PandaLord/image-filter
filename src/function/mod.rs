@@ -52,6 +52,24 @@ pub enum MultipleAction {
     Watermark(multiple::Watermark)
 }
 
+#[enum_dispatch]
+pub trait MonoImpl {
+    fn mono(&self, img: &mut PhotonImage);
+}
+
+
+
+#[enum_dispatch(MonoImpl)]
+pub enum MonoAction {
+    Desaturate(),
+    Decompose(),
+    Grayscale(),
+    Monochrome(),
+    Sepia(),
+    Threshold()
+
+}
+
 
 
 

@@ -4,7 +4,7 @@
 ### Roadmap
 - 封装Photon-rs的功能，实现图片的处理
   - 添加text功能
-  - 
+  - 添加Monochrome功能 Done 
 - 实现一个前端，可以用来选择图片，选择处理方式等
   - 可以是一个Tui/Cli
   - 也可以是一个以webview2为基础的桌面应用，例如tauri
