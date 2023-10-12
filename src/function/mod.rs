@@ -125,4 +125,27 @@ mod test {
         assert!(save_image(handler.0, "pic/test_multiple.jpg").is_ok());
     }
 
+    #[test]
+    fn mono_test() {
+        let img = photon_rs::native::open_image("pic/test.jpg").unwrap();
+        let mut handler = Photon::new(img);
+        let actions = vec![
+            MonoAction::Desaturate(mono_effect::Desaturate),
+            MonoAction::Decompose(mono_effect::Decompose {
+                d_type: mono_effect::DecomposeType::Max,
+            }),
+            MonoAction::Grayscale(mono_effect::Grayscale {
+                channel: mono_effect::GrayscaleChannel::Blue,
+            }),
+            MonoAction::Monochrome(mono_effect::Monochrome {
+                r_offset: 0,
+                g_offset: 0,
+                b_offset: 0,
+            }),
+            MonoAction::Sepia(mono_effect::Sepia),
+            MonoAction::Threshold(mono_effect::Threshold { threshold: 100 }),
+        ];
+        handler.mono(actions.as_ref());
+        assert!(save_image(handler.0, "pic/test_mono.jpg").is_ok());
+    }
 }

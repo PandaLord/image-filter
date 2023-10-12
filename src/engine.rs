@@ -1,8 +1,9 @@
 use photon_rs::PhotonImage;
-use crate::{function::transform::*, prelude::{TransformAction, TransformImpl, MultipleImpl, MultipleAction}};
+use crate::{function::transform::*, prelude::{TransformAction, TransformImpl, MultipleImpl, MultipleAction, MonoAction, MonoImpl}};
 pub trait Engine {
     fn transform(&mut self, actions: &[TransformAction]);
     fn multiple(&mut self, img2: &PhotonImage, actions: &[MultipleAction]);
+    fn mono(&mut self, actions: &[MonoAction]);
 }
 
 pub struct Photon(pub PhotonImage);
@@ -19,8 +20,12 @@ impl Engine for Photon {
             action.multiple(&mut self.0, img2);
         }
     }
-
     
+    fn mono(&mut self, actions: &[MonoAction]) {
+        for action in actions.iter() {
+            action.mono(&mut self.0);
+        }
+    }
 
 }
 
