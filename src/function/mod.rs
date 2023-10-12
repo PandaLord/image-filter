@@ -7,7 +7,7 @@ mod colour_manipulation;
 mod convolution;
 mod correction;
 pub mod filters;
-mod mono_effect;
+pub mod mono_effect;
 mod text_apply;
 mod watermark;
 pub mod transform;
@@ -61,13 +61,12 @@ pub trait MonoImpl {
 
 #[enum_dispatch(MonoImpl)]
 pub enum MonoAction {
-    Desaturate(),
-    Decompose(),
-    Grayscale(),
-    Monochrome(),
-    Sepia(),
-    Threshold()
-
+    Desaturate(mono_effect::Desaturate),
+    Decompose(mono_effect::Decompose),
+    Grayscale(mono_effect::Grayscale),
+    Monochrome(mono_effect::Monochrome),
+    Sepia(mono_effect::Sepia),
+    Threshold(mono_effect::Threshold)
 }
 
 
